@@ -29,6 +29,25 @@ public class WSCSolver
             //find nonlosses and extend them
             WSCState previous = queue.poll();
             List<String> moves = previous.getValidMoves();
+//            if (!visited.contains(previous.toString())){
+//                visited.add(previous.toString());
+                for (String cmd : moves)
+                    if (!previous.execute(cmd).isLoss())
+                        queue.offer(previous.execute(cmd));
+//            }
+        }
+        return queue.peek().getLog();
+    }
+
+    public List<String> computeSolutionWithBacking()
+    {
+        List<String> visited = new ArrayList<>();
+        Queue<WSCState> queue = new LinkedList<>();
+        queue.offer(state);
+        while(!queue.peek().isWin()) {
+            //find nonlosses and extend them
+            WSCState previous = queue.poll();
+            List<String> moves = previous.getValidMoves();
             if (!visited.contains(previous.toString())){
                 visited.add(previous.toString());
                 for (String cmd : moves)

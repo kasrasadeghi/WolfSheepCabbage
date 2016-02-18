@@ -22,8 +22,28 @@ public class WolfSheepCabbage {
     public static void main(String[] args) {
 //        run();
 //        test();
-        solve();
+//        solve();
+        solutionComparison();
     }
+
+    public static void solutionComparison() {
+        WSCState start = new WSCState();
+        WSCSolver solver = new WSCSolver(start);
+
+        long noBackTime, backTime, time = System.nanoTime();
+        System.out.println("Steps = " + solver.computeSolution().size());
+        System.out.println("Time Taken for solution without backing: \n\t"
+                + (noBackTime = System.nanoTime() - time) + "ns");
+
+        time = System.nanoTime();
+        System.out.println("Steps = " + solver.computeSolutionWithBacking().size());
+        System.out.println("Time Taken for solution with backing: \n\t"
+                + (backTime = System.nanoTime() - time) + "ns");
+
+        System.out.println("The solution that lacks backing takes\n\t"
+                + ((double)(noBackTime)/backTime) + "x as much time.");
+    }
+
     public static void solve(){
         WSCState start = new WSCState();
         WSCSolver solver = new WSCSolver(start);
