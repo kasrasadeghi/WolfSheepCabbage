@@ -33,7 +33,7 @@ public class WSCSolver
                 visited.add(previous.toString());
                 for (String cmd : moves)
                     if (!previous.execute(cmd).isLoss())
-                            queue.offer(previous.execute(cmd));
+                        queue.offer(previous.execute(cmd));
             }
         }
         return queue.peek().getLog();

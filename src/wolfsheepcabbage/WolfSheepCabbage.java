@@ -27,11 +27,10 @@ public class WolfSheepCabbage {
     public static void solve(){
         WSCState start = new WSCState();
         WSCSolver solver = new WSCSolver(start);
-        System.out.println("before");
-        solver.computeSolution().forEach(System.out::println);
-        System.out.println("after");
+        final int[] counter = {0};
+        solver.computeSolution().forEach(s -> System.out.println(++counter[0] + ": " + s));
     }
-    
+
     public static void test() {
         Scanner keyboard = new Scanner(System.in);
         String execute = keyboard.nextLine();

@@ -79,10 +79,11 @@ public class WSCState
     private List<ACTOR> right = new ArrayList<>();
     private Boat boat;
     
-    public WSCState(List<ACTOR> l, List<ACTOR> r, Boat b) {
-        this.left = l;
-        this.right = r;
-        this.boat = b;
+    public WSCState(List<ACTOR> l, List<ACTOR> r, Boat b, List<String> log) {
+        this.left = new ArrayList<>(l);
+        this.right = new ArrayList<>(r);
+        this.boat = b.copy();
+        this.log = new ArrayList<>(log);
     }
     
     // constructor - initialize state so that the wolf, the sheep, the cabbage, and the boat are
@@ -125,10 +126,10 @@ public class WSCState
             case WOLF:
                 a = (boat.isLeft) ? left.set(0, a) : right.set(0, a);
             case SHEEP:
-                a = (boat.isLeft) ? left.set(0, a) : right.set(0, a);
+                a = (boat.isLeft) ? left.set(1, a) : right.set(1, a);
                 break;
             case CABBAGE:
-                a = (boat.isLeft) ? left.set(0, a) : right.set(0, a);
+                a = (boat.isLeft) ? left.set(2, a) : right.set(2, a);
                 break;
         }
     }
@@ -136,10 +137,7 @@ public class WSCState
     // copy - returns a new WSCState identical to this one
     public WSCState copy()
     {
-        List<ACTOR> l = new ArrayList<>(this.left);
-        List<ACTOR> r = new ArrayList<>(this.right);
-        Boat b = this.boat.copy();
-        return new WSCState(l, r, b);
+        return new WSCState(left, right, boat, log);
     }
     
     // toString - returns a String representation of this state.
